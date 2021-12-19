@@ -1,15 +1,18 @@
+from typing import List
+
 import GraphAlgoInterface
 from GraphInterface import GraphInterface
 
 
 class GraphAlgo(GraphAlgoInterface):
 
-    def get_graph(self) -> GraphInterface:
+    def get_graph(self):
+
         """
         :return: the directed graph on which the algorithm works on.
         """
 
-    def load_from_json(self, file_name: str) -> bool:
+    def load_from_json(self, file_name: str):
         """
         Loads a graph from a json file.
         @param file_name: The path to the json file
@@ -17,15 +20,14 @@ class GraphAlgo(GraphAlgoInterface):
         """
         raise NotImplementedError
 
-    def save_to_json(self, file_name: str) -> bool:
+    def save_to_json(self, file_name):
         """
         Saves the graph in JSON format to a file
         @param file_name: The path to the out file
         @return: True if the save was successful, False o.w.
         """
-        raise NotImplementedError
 
-    def shortest_path(self, id1: int, id2: int) -> (float, list):
+    def shortest_path(self, id1, id2):
         """
         Returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm
         @param id1: The start node id
@@ -50,24 +52,24 @@ class GraphAlgo(GraphAlgoInterface):
         """
         raise NotImplementedError
 
-    def TSP(self, node_lst: List[int]) -> (List[int], float):
+    def TSP(self, node_lst):
         """
         Finds the shortest path that visits all the nodes in the list
         :param node_lst: A list of nodes id's
         :return: A list of the nodes id's in the path, and the overall distance
         """
 
-    def centerPoint(self) -> (int, float):
+    def centerPoint(self):
         """
         Finds the node that has the shortest distance to it's farthest node.
         :return: The nodes id, min-maximum distance
         """
 
-    def plot_graph(self) -> None:
+    def plot_graph(self):
         """
         Plots the graph.
         If the nodes have a position, the nodes will be placed there.
         Otherwise, they will be placed in a random but elegant manner.
         @return: None
         """
-        raise NotImplementedError
+
