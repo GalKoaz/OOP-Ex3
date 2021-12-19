@@ -1,10 +1,8 @@
-from typing import List
-
+import GraphAlgoInterface
 from GraphInterface import GraphInterface
 
 
-class GraphAlgoInterface:
-    """This abstract class represents an interface of a graph."""
+class GraphAlgo(GraphAlgoInterface):
 
     def get_graph(self) -> GraphInterface:
         """
