@@ -82,14 +82,25 @@ class DiGraph(GraphInterface):
             return False
 
     def remove_node(self, node_id: int) -> bool:
-        if node_id not in self.vertices.keys():
+        if node_id not in self.vertices:
             return False
         else:
+            removedE = 0
             self.vertices.pop(node_id)
             if node_id in self.inEdges:
-                for key in self.inEdges[node_id].keys():
-                    self.remove_edge(node_id, key)
+                for key in self.inEdges.keys():
+                    if node_id in self.inEdges[key].keys():
+                        del self.inEdges[key][node_id]
+                        removedE += 1
+                removedE += len(self.inEdges.pop(node_id))
+
+            if node_id in self.outEdges:
+                for key in self.outEdges.keys():
+                    if node_id in self.outEdges[key].keys():
+                        del self.outEdges[key][node_id]
+                self.outEdges.pop(node_id)
             self.__node_size -= 1
+            self.__edge_size -= removedE
             self.__MC += 1
             return True
 

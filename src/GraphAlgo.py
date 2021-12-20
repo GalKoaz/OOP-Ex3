@@ -9,12 +9,25 @@ from DiGraph import DiGraph
 class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = DiGraph()):
+        """
+
+        :param graph:
+        """
         self.graph = graph
 
     def get_graph(self) -> DiGraph:
+        """
+
+        :return:
+        """
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
+        """
+
+        :param file_name:
+        :return:
+        """
         try:
             with open(file_name) as file:
                 load = json.load(file)
@@ -36,6 +49,11 @@ class GraphAlgo(GraphAlgoInterface):
             file.close()
 
     def save_to_json(self, file_name) -> bool:
+        """
+
+        :param file_name:
+        :return:
+        """
         try:
             with open(file_name, "w") as outfile:
                 json.dump(self.graph, default=lambda o: o.__dict__,
@@ -47,7 +65,8 @@ class GraphAlgo(GraphAlgoInterface):
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
 
-    def TSP(self, node_lst: List[int]) -> (List[int], float):
+
+     def TSP(self, node_lst: List[int]) -> (List[int], float):
         """
         Finds the shortest path that visits all the nodes in the list
         :param node_lst: A list of nodes id's
