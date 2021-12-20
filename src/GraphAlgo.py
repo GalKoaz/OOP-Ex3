@@ -1,10 +1,14 @@
+import json
 from typing import List
 
 import GraphAlgoInterface
 from GraphInterface import GraphInterface
-
+from DiGraph import DiGraph
 
 class GraphAlgo(GraphAlgoInterface):
+
+    def __init__(self, graph: DiGraph = DiGraph()):
+        self.graph = graph
 
     def get_graph(self):
 
@@ -12,7 +16,27 @@ class GraphAlgo(GraphAlgoInterface):
         :return: the directed graph on which the algorithm works on.
         """
 
-    def load_from_json(self, file_name: str):
+    def load_from_json(self, file_name: str) -> bool:
+        try:
+            with open(file_name) as file:
+                load = json.load(file)
+                graph = DiGraph()
+            for edge in load["Edges"]:
+                graph.add_edge(edge["src"], edge["dest"], edge["w"])
+            self.graph = graph
+            for nodes in load["Nodes"]:
+                if "pos" in nodes:
+                    pos = tuple(map(float, str(nodes["pos"]).split(",")))
+                else:
+                    pos = None
+                graph.add_node(nodes["id"], pos)
+            return True
+        except Exception as e:
+            print(e)
+            return False
+        finally:
+            file.close()
+
         """
         Loads a graph from a json file.
         @param file_name: The path to the json file
@@ -65,11 +89,12 @@ class GraphAlgo(GraphAlgoInterface):
         :return: The nodes id, min-maximum distance
         """
 
-    def plot_graph(self):
+    def plot_graph(self) -> None:
         """
         Plots the graph.
         If the nodes have a position, the nodes will be placed there.
         Otherwise, they will be placed in a random but elegant manner.
         @return: None
         """
+
 
