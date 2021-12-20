@@ -113,3 +113,9 @@ class DiGraph(GraphInterface):
             return True
         else:
             return False
+
+    # def __repr__(self) -> str:
+    #     str = ''
+    #     # for k,v in self.get_all_v()
+    #
+
