@@ -133,22 +133,21 @@ class DiGraphTest(TestCase):
         self.assertIsNotNone(self.G1.all_in_edges_of_node(4).get(0))
         self.assertIsNotNone(self.G1.all_out_edges_of_node(0).get(4))
 
-        self.assertEqual(self.G1.e_size(), 9)
-        self.assertEqual(self.G1.get_mc(), 15)
-
-        flag = self.G1.add_edge(5, 2, 1.21451)
         self.assertEqual(self.G1.e_size(), 10)
         self.assertEqual(self.G1.get_mc(), 16)
+        flag = self.G1.add_edge(5, 2, 1.21451)
+        self.assertEqual(self.G1.e_size(), 11)
+        self.assertEqual(self.G1.get_mc(), 17)
         self.assertTrue(flag)
 
         flag = self.G1.add_edge(4, 2, 0.47564)
-        self.assertEqual(self.G1.e_size(), 11)
-        self.assertEqual(self.G1.get_mc(), 17)
+        self.assertEqual(self.G1.e_size(), 12)
+        self.assertEqual(self.G1.get_mc(), 18)
         self.assertTrue(flag)
 
         flag = self.G1.add_edge(3, 1, 0.47564)  # This edge already exist in G1.
-        self.assertEqual(self.G1.e_size(), 11)
-        self.assertEqual(self.G1.get_mc(), 17)
+        self.assertEqual(self.G1.e_size(), 12)
+        self.assertEqual(self.G1.get_mc(), 18)
         self.assertFalse(flag)
 
     def test_add_node(self):
@@ -207,32 +206,32 @@ class DiGraphTest(TestCase):
         self.assertIsNotNone(self.G1.all_in_edges_of_node(4).get(0))
         self.assertIsNotNone(self.G1.all_out_edges_of_node(0).get(4))
 
-        self.assertEqual(self.G1.e_size(), 9)
-        self.assertEqual(self.G1.get_mc(), 15)
-
-        flag = self.G1.add_edge(5, 2, 1.26523)
         self.assertEqual(self.G1.e_size(), 10)
         self.assertEqual(self.G1.get_mc(), 16)
+
+        flag = self.G1.add_edge(5, 2, 1.26523)
+        self.assertEqual(self.G1.e_size(), 11)
+        self.assertEqual(self.G1.get_mc(), 17)
         self.assertTrue(flag)
 
         flag = self.G1.add_edge(4, 2, 0.2623)
-        self.assertEqual(self.G1.e_size(), 11)
-        self.assertEqual(self.G1.get_mc(), 17)
-        self.assertTrue(flag)
-
-        flag = self.G1.add_edge(3, 1, 0.26342)  # This edge already exist in G1.
-        self.assertEqual(self.G1.e_size(), 11)
-        self.assertEqual(self.G1.get_mc(), 17)
-        self.assertFalse(flag)
-
-        flag = self.G1.remove_edge(3, 1)
-        self.assertEqual(self.G1.e_size(), 10)
+        self.assertEqual(self.G1.e_size(), 12)
         self.assertEqual(self.G1.get_mc(), 18)
         self.assertTrue(flag)
 
-        flag = self.G1.add_edge(3, 1, 0.26342)  # This edge DOES NOT exist in G1.
+        flag = self.G1.add_edge(3, 1, 0.26342)  # This edge already exist in G1.
+        self.assertEqual(self.G1.e_size(), 12)
+        self.assertEqual(self.G1.get_mc(), 18)
+        self.assertFalse(flag)
+
+        flag = self.G1.remove_edge(3, 1)
         self.assertEqual(self.G1.e_size(), 11)
         self.assertEqual(self.G1.get_mc(), 19)
+        self.assertTrue(flag)
+
+        flag = self.G1.add_edge(3, 1, 0.26342)  # This edge DOES NOT exist in G1.
+        self.assertEqual(self.G1.e_size(), 12)
+        self.assertEqual(self.G1.get_mc(), 20)
         self.assertTrue(flag)
 
 

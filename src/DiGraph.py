@@ -110,5 +110,6 @@ class DiGraph(GraphInterface):
             self.outEdges[node_id2].pop(node_id1)
             self.__MC += 1
             self.__edge_size -= 1
+            return True
         else:
             return False
