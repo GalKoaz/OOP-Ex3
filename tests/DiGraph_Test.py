@@ -6,6 +6,7 @@
 
 import unittest
 from unittest import TestCase
+from GraphInterface import DiGrap
 from DiGraph import DiGraph
 
 
