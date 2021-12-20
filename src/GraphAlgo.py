@@ -36,16 +36,15 @@ class GraphAlgo(GraphAlgoInterface):
         try:
             with open(file_name) as file:
                 load = json.load(file)
-                graph = DiGraph()
-            for edge in load["Edges"]:
-                graph.add_edge(edge["src"], edge["dest"], edge["w"])
-            self.graph = graph
-            for nodes in load["Nodes"]:
-                if "pos" in nodes:
-                    pos = tuple(map(float, str(nodes["pos"]).split(",")))
-                else:
-                    pos = None
-                graph.add_node(nodes["id"], pos)
+                for nodes in load["Nodes"]:
+                    if "pos" in nodes:
+                        pos = tuple(map(float, str(nodes["pos"]).split(",")))
+                    else:
+                        pos = None
+                    self.graph.add_node(nodes["id"], pos)
+                for edge in load["Edges"]:
+                    self.graph.add_edge(edge["src"], edge["dest"], edge["w"])
+
             return True
         except Exception as e:
             print(e)
@@ -87,6 +86,9 @@ class GraphAlgo(GraphAlgoInterface):
             visited.add(curr)
             if curr == id2:
                 return weight
+            if self.graph.all_out_edges_of_node(curr) is None:
+                dist[curr] = math.inf
+                continue
             for key, w in self.graph.all_out_edges_of_node(curr).items():
                 if key in visited:
                     continue
