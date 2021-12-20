@@ -8,6 +8,7 @@ import GraphInterface
 
 
 class DiGraph(GraphInterface):
+
     def __init__(self):
         self.node_size = 0
         self.edge_size = 0
