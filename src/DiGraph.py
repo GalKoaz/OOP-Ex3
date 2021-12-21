@@ -197,22 +197,22 @@ class DiGraph(GraphInterface):
 
     def remove_node(self, node_id: int) -> bool:
         """
-        Method first checks for exceptional cases:
-                1. if the indices are equivalent, then it couldn't be an edge so do nothing -> RETURN FALSE.
-                2. if one of the nodes doesn't exist, then the method does nothing -> RETURN FALSE.
-                3. if there is already an edge exist we pass (meaning the method does nothing -> RETURN FALSE).
+        Method first checks for exceptional cases: if a node isn't exist, then there is nothing
+        to remove -> RETURN FALSE
 
         If these cases aren't corresponded to our case, then it shall add the
         edge as following:
 
-                1. check if there is an initialized dictionary for the id1 node in the dictionary,
-                   then the methods can recognize the key and add the value to the key.
-                   O.w. method should initialize a dict for the key, then can add
-                   the second key for edge normally.
+                1. removes each edge related to the node_id vertex, meaning
+                that it removes each edge starts or ends in the node. In the meanwhile,
+                the method counts how many edges it removed, and updates the edge size
+                property.
 
-                2. same procedure for initializing in outEdges dictionary.
+                Note: the method removes the edges both in inEdges and outEdges dicts.
 
-        Finally, method updates edge size property, and the mode counter because graph change has made -> RETURN TRUE.
+                2. method removes the vertex from the vertices' dict.
+
+        Finally, method updates node size property, and the mode counter because graph change has made -> RETURN TRUE.
 
         Parameters
         ----------
