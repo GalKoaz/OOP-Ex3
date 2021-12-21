@@ -213,7 +213,7 @@ class GraphAlgo(GraphAlgoInterface):
             plt.text(x, y, str(v), horizontalalignment='center',
                      verticalalignment='center',
                      bbox=dict(facecolor='blue', edgecolor='red', boxstyle='circle, pad=0.15'), color='white')
-            plt.title("Directed Weighted Graph by Gal & Amir", fontsize=15)
+            plt.title("Directed Weighted Graph by Gal & Amir\n", fontsize=15)
             plt.xlabel("Nodes Size: ${}$, Edges Size: ${}$".format(self.graph.v_size(), self.graph.e_size()),
                        fontsize=13)
             # (v,u) N(v) = u (v -> u)
