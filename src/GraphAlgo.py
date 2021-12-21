@@ -1,3 +1,9 @@
+# -------------------------------------------------------------------------- #
+# Title:  Directed Weighted Graph - Python                                   #
+# Author: Amir Gillette, Gal Koaz                                            #
+# Course: OOP                                                                #
+# -------------------------------------------------------------------------- #
+
 import copy
 import heapq
 import json
@@ -15,23 +21,26 @@ class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = DiGraph()):
         """
-
+        The Method returns a graph.
         :param graph:
         """
         self.graph = graph
 
     def get_graph(self) -> DiGraph:
         """
-
-        :return:
+        The method returns a initialized graph.
+        :return: the directed graph on which the algorithm works on.
         """
         return self.graph
 
     def load_from_json(self, file_name: str) -> bool:
         """
-
-        :param file_name:
-        :return:
+        Loads a graph from a json file.
+        @param file_name: The path to the json file
+        @returns True if the loading was successful, False o.w.
+        The method loads the given file with the JSON_Operation class.
+        Afterwards, the method initialize the graph with the json.
+        @returns true if the method successfully read the json file.
         """
         try:
             with open(file_name) as file:
@@ -54,9 +63,11 @@ class GraphAlgo(GraphAlgoInterface):
 
     def save_to_json(self, file_name) -> bool:
         """
-
-        :param file_name:
-        :return:
+        Saves the graph in JSON format to a file
+        @param file_name: The path to the out file
+        @return: True if the save was successful, False o.w.
+        he method saves the graph as a json file in the given name.
+        @returns true if the method have successfully written the json file
         """
         try:
             with open(file_name, "w") as outfile:
@@ -173,22 +184,36 @@ class GraphAlgo(GraphAlgoInterface):
         return center, minimum
 
     def plot_graph(self) -> None:
-
-        # update all nodes with pos:
+        """
+        Plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner.
+        We Update all Node with pos if they not have we create a random
+        Position, we draw the lines with the arrow of each each and we
+        skip if the Edge between the vertex is null.
+        @return: None
+        """
         for v in self.graph.get_all_v():
             if self.graph.vertices[v] is None:
-                self.graph.vertices[v] = (random.uniform(35, 36), random.uniform(32, 33), 0.0)
+                self.graph.vertices[v] = (random.uniform(0, 36), random.uniform(0, 33), 0.0)
         for v in self.graph.get_all_v():
             t = self.graph.vertices[v]
             x = t[0]
             y = t[1]
-            plt.plot(x, y, color='blue')
-            plt.text(x, y, str(v), color="black", fontsize=8)
-
+            plt.plot(x, y, color='blue', marker='o', markersize=8, scalex=True, scaley=True)
+            if self.graph.all_out_edges_of_node(v) is not None:
+                for u in self.graph.all_out_edges_of_node(v):
+                    t2 = self.graph.vertices[u]
+                    x2 = t2[0]
+                    y2 = t2[1]
+                    plt.annotate("", xy=(x, y), xytext=(x2, y2),
+                                 arrowprops=dict(arrowstyle='- >', color='red', shrinkA=7, shrinkB=7, patchA=None,
+                                                 patchB=None))
+            plt.text(x, y, str(v), horizontalalignment='center',
+                     verticalalignment='center',
+                     bbox=dict(facecolor='blue', edgecolor='red', boxstyle='circle, pad=0.15'), color='white')
+            plt.title("Directed Weighted Graph by Gal & Amir", fontsize=15)
+            plt.xlabel("Nodes Size: ${}$, Edges Size: ${}$".format(self.graph.v_size(), self.graph.e_size()),
+                       fontsize=13)
             # (v,u) N(v) = u (v -> u)
-            for u in self.graph.all_out_edges_of_node(v):
-                t2 = self.graph.vertices[u]
-                x2 = t2[0]
-                y2 = t2[1]
-                plt.annotate("", xy=(x, y), xytext=(x2, y2), arrowprops=dict(arrowstyle='-| >'))
         plt.show()
