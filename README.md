@@ -40,7 +40,7 @@ Click the image for zoom in.
 
 
 <p align="center">
-<img align="center" src="https://s10.gifyu.com/images/UMLc09cec21e33d69e2.png" />
+<img align="center" src="https://s10.gifyu.com/images/UML1a2275cf5dbed2c7.png" />
 </p>
 
 As you can see in UML we implement the main Directed Weighted Graph interfaces that with the help of other interfaces and class we can build the whole project.
