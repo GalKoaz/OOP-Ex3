@@ -67,7 +67,7 @@ class GraphAlgo(GraphAlgoInterface):
         Saves the graph in JSON format to a file
         @param file_name: The path to the out file
         @return: True if the save was successful, False o.w.
-        he method saves the graph as a json file in the given name.
+        the method saves the graph as a json file in the given name.
         @returns true if the method have successfully written the json file
         """
         try:
@@ -80,6 +80,25 @@ class GraphAlgo(GraphAlgoInterface):
         return True
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
+        """
+        The method uses Dijkstra's algorithm for finding the optimal path from src to destination.
+
+        In terms of time complexity: the way we implemented the algorithm gives us time complexity
+        of O(|V|+|E|*log(|V|)), because the structure we have applied is min heap, which arranges
+        the nodes by their current accumulated distance.
+
+        Parameters
+        ----------
+        :param: id1: int
+            an id of a certain nodes.
+        :param: id2: int
+            an id of a certain nodes.
+
+        Returns
+        -------
+        :return: float: a list of the nodes' id's in the path, and the overall distance
+        :return: float: a list of the nodes' id's in the path, and the overall distance
+        """
         if id1 not in self.graph.get_all_v() or id2 not in self.graph.get_all_v():
             return None
 
@@ -120,6 +139,17 @@ class GraphAlgo(GraphAlgoInterface):
         return dist[id2], path
 
     def dijkstra(self, id1: int) -> dict[Union[int, Any], Union[Union[float, int], Any]]:
+        """
+        dijkstra algorithm, exactly as the shortest path as the above,
+        but returns the dist dict.
+        Parameters
+        ----------
+        :param id1: int
+            an id of a certain node (the src node)
+
+        :return: the dist dict with all shortest paths from src node,
+        to any other node.
+        """
         dist = {}
         for node_id in self.graph.get_all_v():
             dist[node_id] = math.inf
@@ -144,6 +174,28 @@ class GraphAlgo(GraphAlgoInterface):
         return dist
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
+        """
+        DEFINITION TSP problem. By given a complete graph with weighted edges,
+        what is the Hamiltonian cycle (the path that visits all every node once) of minimum cost.
+
+        The idea: this method takes out the first couple of nodes, finds the shortest path
+        between each pair, but we are wisely checking if a new node to be checked
+        is already in the list, if so it skips on him. This wisely step in the algorithm
+        prevent redundant passing over the same paths.
+
+        Time complexity. in terms of time complexity, the algorithm checks each
+        ordered pairs, but actually it passes every city only once and apply Dijkstra's algorithm.
+        Let us mark the cities as c then it takes O(c * (|E|+|E|log|V|)).
+
+        Parameters
+        ----------
+        :param: node_lst: List[int]
+            the cities to go through.
+
+        Returns
+        -------
+        :return: a list of the nodes' id's in the path, and the overall distance
+        """
         if len(node_lst) <= 1:
             return node_lst, 0
 
@@ -163,6 +215,19 @@ class GraphAlgo(GraphAlgoInterface):
         return ans, self.path_cost(node_lst)
 
     def path_cost(self, node_lst: List[int]) -> float:
+        """
+        The method calculates the path's cost, meaning that it goes over each pair
+        and add its weight to the total weight.
+
+        Parameters
+        ----------
+        :param: node_lst: List[int]
+            the path to go through.
+
+        Returns
+        -------
+        :return: float: cost of the given path.
+        """
         s = 0
         for i in range(0, len(node_lst) - 1):
             s += self.graph.all_out_edges_of_node(node_lst[i])[node_lst[i + 1]]
@@ -170,6 +235,28 @@ class GraphAlgo(GraphAlgoInterface):
         return s
 
     def centerPoint(self) -> (int, float):
+        """
+        This method finds the center of the graph.
+
+        Graph Center DEFINITION. the graph center is the vertex to have the minimum eccentricity.
+
+        In a defined formula: C = min{e(v) | for each v ∈ G(V)}
+
+        This method also computes the eccentricity of a vertex v.
+
+        Eccentricity DEFINITION. the eccentricity of a vertex v is the maximum distance between v towards
+        each one of the other vertices.
+
+        Distance DEFINITION. the distance d(v,u) is the shortest path between v and u.
+
+
+        As being said the eccentricity defined as the following: e(v) = max{d(v,u) such that u ∈ V(G) for each u ∈ V(G)}.
+
+        Returns
+        -------
+        :return: int: the center index (node id).
+        :return: float: the value of the minimum distance.
+        """
         minimum = math.inf
         center = 0
         for v in self.graph.get_all_v():
@@ -186,7 +273,7 @@ class GraphAlgo(GraphAlgoInterface):
 
     def plot_graph(self) -> None:
         """
-        Plots the graph.
+        The method plots the graph.
         If the nodes have a position, the nodes will be placed there.
         Otherwise, they will be placed in a random but elegant manner.
         We Update all Node with pos if they not have we create a random
