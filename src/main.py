@@ -111,6 +111,7 @@ def check4():
     print(g_algo.centerPoint())
 
     g_algo = GraphAlgo()
+
     file = '../data/A1.json'
     g_algo.load_from_json(file)
     print(g_algo.centerPoint())

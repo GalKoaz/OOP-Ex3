@@ -188,7 +188,7 @@ class GraphAlgo(GraphAlgoInterface):
         If the nodes have a position, the nodes will be placed there.
         Otherwise, they will be placed in a random but elegant manner.
         We Update all Node with pos if they not have we create a random
-        Position, we draw the lines with the arrow of each each and we
+        Position, we draw the lines with the arrow of each, and we
         skip if the Edge between the vertex is null.
         @return: None
         """
