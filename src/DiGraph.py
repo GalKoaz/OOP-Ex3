@@ -10,40 +10,133 @@ from GraphInterface import GraphInterface
 class DiGraph(GraphInterface):
 
     def __init__(self):
+        # __node_size = the graph' nodes amount.
         self.__node_size = 0
+        # __edge_size = the graph' edges amount.
         self.__edge_size = 0
+        # MC = mode counter of the graph.
         self.__MC = 0
+        # vertices dictionary
         self.vertices = {}
         # A dictionary of dictionary for the edges.
         self.inEdges = {}
+        # A dictionary of dictionary for the edges.
         self.outEdges = {}
 
     def v_size(self) -> int:
+        """
+        The method returns the graph's vertices amount, which is a property,
+        updated by other methods.
+
+        Returns
+        -------
+        :return: __node_size private property = the number of vertices in the graph.
+        """
         return self.__node_size
 
     def e_size(self) -> int:
+        """
+        The method returns the graph's edges amount, which is a property,
+        updated by other methods.
+
+        Returns
+        -------
+        :return: __edge_size private property = the number of edges in the graph.
+        """
         return self.__edge_size
 
     def get_all_v(self) -> dict:
+        """
+        The method returns the vertices' dictionary which
+        stores the vertices with the positions as values of the key = node_id.
+
+        Returns
+        -------
+        :return: vertices = vertices' dictionary.
+        """
         return self.vertices
 
     def all_in_edges_of_node(self, id1: int) -> dict:
         """
+        Method to have a dictionary of each vertex to point with an arrow
+        on id1.
 
-        :param: id1:
+        Parameters
+        ----------
+        :param: id1: int
+            an id of a certain node to look up for his neighbours points on it.
 
-        :return: return a dictionary of all the nodes connected to (into) node_id ,
+        Returns
+        -------
+        :return: outEdges dictionary = a dictionary of all the nodes connected to (into) node_id ,
         each node is represented using a pair (other_node_id, weight)
         """
         return self.outEdges.get(id1)
 
     def all_out_edges_of_node(self, id1: int) -> dict:
+        """
+        Method to have a dictionary of all id1's neighbours, means that
+        id1 points with an arrow on them.
+
+        Parameters
+        ----------
+        :param: id1: int
+            an id of a certain node to look up for his neighbours.
+
+        Returns
+        -------
+        :return: inEdges dictionary = a dictionary of all the nodes connected to (into) node_id ,
+        each node is represented using a pair (other_node_id, weight)
+        """
         return self.inEdges.get(id1)
 
     def get_mc(self) -> int:
+        """
+        Method returns the mode counter which is a property,
+        updated by other methods, especially in methods that
+        change the graph (remove, addition, etc...).
+
+        Returns
+        -------
+        :return: __MC private property = mode counter of the graph,
+        """
         return self.__MC
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
+        """
+        Method first checks for exceptional cases:
+                1. if the indices are equivalent, then it couldn't be an edge so do nothing -> RETURN FALSE.
+                2. if one of the nodes doesn't exist, then the method does nothing -> RETURN FALSE.
+                3. if there is already an edge exist we pass (meaning the method does nothing -> RETURN FALSE).
+
+        If these cases aren't corresponded to our case, then it shall add the
+        edge as following:
+
+                1. check if there is an initialized dictionary for the id1 node in the dictionary,
+                   then the methods can recognize the key and add the value to the key.
+                   O.w. method should initialize a dict for the key, then can add
+                   the second key for edge normally.
+
+                2. same procedure for initializing in outEdges dictionary.
+
+        Finally, method updates edge size property, and the mode counter because graph change has made -> RETURN TRUE.
+
+        Parameters
+        ----------
+        :param: id1: int
+            an id of a certain node.
+
+        :param: id2: int
+            an id of a certain node.
+
+        :param: weight: float
+            Edge weight where edge is (id1 -> id2).
+
+        Returns
+        -------
+        :return: True if the edge was added successfully, False o.w.
+        """
+
         # if the indices are equivalent, then it couldn't be an edge.
         if id1 == id2:
             return False
@@ -73,6 +166,27 @@ class DiGraph(GraphInterface):
         return True
 
     def add_node(self, node_id: int, pos: tuple = None) -> bool:
+        """
+        Method first checks for exceptional cases: if the node already exist
+        there is no point to override or to add, so do nothing, i.e. -> RETURN FALSE.
+
+        O.W. if the node isn't already exist, we add it to the vertices' dictionary,
+        update mode counter to point that a change on the graph has made,
+        update the node size because we have added one more to the graph,
+        finally, RETURN TRUE.
+
+        Parameters
+        ----------
+        :param: node_id: int
+            an id of a certain node.
+
+        :param: pos: tuple
+            a 3-tuple (x,y,z): resembles the node geolocation.
+
+        Returns
+        -------
+        :return: True if the node was added successfully to the graph, False o.w.
+        """
         if node_id not in self.vertices.keys():
             self.vertices[node_id] = pos
             self.__MC += 1
@@ -82,6 +196,33 @@ class DiGraph(GraphInterface):
             return False
 
     def remove_node(self, node_id: int) -> bool:
+        """
+        Method first checks for exceptional cases:
+                1. if the indices are equivalent, then it couldn't be an edge so do nothing -> RETURN FALSE.
+                2. if one of the nodes doesn't exist, then the method does nothing -> RETURN FALSE.
+                3. if there is already an edge exist we pass (meaning the method does nothing -> RETURN FALSE).
+
+        If these cases aren't corresponded to our case, then it shall add the
+        edge as following:
+
+                1. check if there is an initialized dictionary for the id1 node in the dictionary,
+                   then the methods can recognize the key and add the value to the key.
+                   O.w. method should initialize a dict for the key, then can add
+                   the second key for edge normally.
+
+                2. same procedure for initializing in outEdges dictionary.
+
+        Finally, method updates edge size property, and the mode counter because graph change has made -> RETURN TRUE.
+
+        Parameters
+        ----------
+        :param: id1: int
+            an id of a certain node to be removed.
+
+        Returns
+        -------
+        :return: True if the node has removed successfully, False o.w.
+        """
         if node_id not in self.vertices:
             return False
         else:
@@ -105,6 +246,32 @@ class DiGraph(GraphInterface):
             return True
 
     def remove_edge(self, node_id1: int, node_id2: int) -> bool:
+        """
+        Method first checks for exceptional cases: if the edge already exist, it
+        has nothing -> RETURN FALSE.
+
+
+        If these cases aren't corresponded to our case, then it shall remove the
+        edge as following:
+
+                1. remove edge from inEdges and the equivalent edge in outEdges.
+
+                2. update mode counter and edge size, because we removed an edge.
+
+        Finally, RETURN TRUE.
+
+        Parameters
+        ----------
+        :param: node_id1: int
+            an id of a certain nodes.
+
+        :param: node_id2: int
+            an id of a certain node.
+
+        Returns
+        -------
+        :return: True if the edge has removed successfully, False o.w.
+        """
         if node_id1 in self.inEdges.keys() and node_id2 in self.inEdges[node_id1].keys():
             self.inEdges[node_id1].pop(node_id2)
             self.outEdges[node_id2].pop(node_id1)
@@ -118,4 +285,3 @@ class DiGraph(GraphInterface):
     #     str = ''
     #     # for k,v in self.get_all_v()
     #
-
