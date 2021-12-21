@@ -80,14 +80,12 @@ class GraphAlgo(GraphAlgoInterface):
         heap = [(0, id1)]  # cost from start node,end node
         visited = set()
         while heap:
-            (weight, curr) = heapq.heappop(heap)
+            weight, curr = heapq.heappop(heap)
             if curr in visited:
                 continue
             visited.add(curr)
-            if curr == id2:
-                return weight
+
             if self.graph.all_out_edges_of_node(curr) is None:
-                dist[curr] = math.inf
                 continue
             for key, w in self.graph.all_out_edges_of_node(curr).items():
                 if key in visited:
@@ -97,14 +95,15 @@ class GraphAlgo(GraphAlgoInterface):
                     dist[key] = curr_w
                     parent[key] = curr
                 heapq.heappush(heap, (dist[key], key))
+            if curr == id2:
+                break
 
         path = []
         curr_parent = id2
         if dist[id2] != math.inf:
-            while curr_parent != id1:
-                path.insert(0, parent[curr_parent])
+            while curr_parent != -1:
+                path.insert(0, curr_parent)
                 curr_parent = parent[curr_parent]
-            path.insert(0, parent[id1])
 
         return dist[id2], path
 
@@ -118,17 +117,17 @@ class GraphAlgo(GraphAlgoInterface):
         visited = set()
         while heap:
             (weight, curr) = heapq.heappop(heap)
-            if curr in visited:
-                continue
-            visited.add(curr)
 
+            visited.add(curr)
+            if self.graph.all_out_edges_of_node(curr) is None:
+                continue
             for key, w in self.graph.all_out_edges_of_node(curr).items():
                 if key in visited:
                     continue
                 curr_w = dist[curr] + w
                 if dist[key] > curr_w:
                     dist[key] = curr_w
-                heapq.heappush(heap, (dist[key], key))
+                    heapq.heappush(heap, (dist[key], key))
         return dist
 
     def TSP(self, node_lst: List[int]) -> (List[int], float):
