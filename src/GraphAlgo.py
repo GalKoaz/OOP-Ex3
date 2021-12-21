@@ -45,6 +45,7 @@ class GraphAlgo(GraphAlgoInterface):
         try:
             with open(file_name) as file:
                 load = json.load(file)
+                self.graph = DiGraph()
                 for nodes in load["Nodes"]:
                     if "pos" in nodes:
                         pos = tuple(map(float, str(nodes["pos"]).split(",")))
@@ -128,7 +129,8 @@ class GraphAlgo(GraphAlgoInterface):
         visited = set()
         while heap:
             (weight, curr) = heapq.heappop(heap)
-
+            if curr in visited:
+                continue
             visited.add(curr)
             if self.graph.all_out_edges_of_node(curr) is None:
                 continue
