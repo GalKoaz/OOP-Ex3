@@ -183,6 +183,10 @@ class GraphAlgo(GraphAlgoInterface):
         is already in the list, if so it skips on him. This wisely step in the algorithm
         prevent redundant passing over the same paths.
 
+        In addition, the method also calculates the path cost, without even
+        calling an additional method, or iterating again over the path, which cost a lot of time since
+        python has high cost for calling a function.
+
         Time complexity. in terms of time complexity, the algorithm checks each
         ordered pairs, but actually it passes every city only once and apply Dijkstra's algorithm.
         Let us mark the cities as c then it takes O(c * (|E|+|E|log|V|)).
@@ -199,20 +203,24 @@ class GraphAlgo(GraphAlgoInterface):
         if len(node_lst) <= 1:
             return node_lst, 0
 
+        path_cost = 0
         cities = node_lst
         ans = []
         src = cities.pop(0)
         dest = cities.pop(0)
-        ans += self.shortest_path(src, dest)[1]
+        shortest = self.shortest_path(src, dest)
+        ans += shortest[1]
+        path_cost += shortest[0]
 
         while cities:
             curr_city = cities.pop(0)
             if ans.__contains__(curr_city):
                 continue
             last = ans.pop(len(ans) - 1)
-            curr = self.shortest_path(last, curr_city)[1]
-            ans += curr
-        return ans, self.path_cost(ans)
+            curr = self.shortest_path(last, curr_city)
+            ans += curr[1]
+            path_cost += curr[0]
+        return ans, path_cost
 
     def path_cost(self, node_lst: List[int]) -> float:
         """
