@@ -202,7 +202,7 @@ class GraphAlgo(GraphAlgoInterface):
         cities = node_lst
         ans = []
         src = cities.pop(0)
-        dest = cities.pop(1)
+        dest = cities.pop(0)
         ans += self.shortest_path(src, dest)[1]
 
         while cities:
@@ -212,7 +212,7 @@ class GraphAlgo(GraphAlgoInterface):
             last = ans.pop(len(ans) - 1)
             curr = self.shortest_path(last, curr_city)[1]
             ans += curr
-        return ans, self.path_cost(node_lst)
+        return ans, self.path_cost(ans)
 
     def path_cost(self, node_lst: List[int]) -> float:
         """
