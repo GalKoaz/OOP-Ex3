@@ -141,7 +141,7 @@ class GraphAlgo(GraphAlgoInterface):
     def dijkstra(self, id1: int) -> dict[Union[int, Any], Union[Union[float, int], Any]]:
         """
         dijkstra algorithm, exactly as the shortest path as the above,
-        but returns the dist dict.
+        but instead returns the dist dict.
         Parameters
         ----------
         :param id1: int
