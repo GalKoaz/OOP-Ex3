@@ -311,5 +311,4 @@ class GraphAlgo(GraphAlgoInterface):
             plt.title("Directed Weighted Graph by Gal & Amir\n", fontsize=15)
             plt.xlabel("Nodes Size: ${}$, Edges Size: ${}$".format(self.graph.v_size(), self.graph.e_size()),
                        fontsize=13)
-            # (v,u) N(v) = u (v -> u)
         plt.show()
