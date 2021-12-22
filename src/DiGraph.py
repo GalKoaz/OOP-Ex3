@@ -281,7 +281,41 @@ class DiGraph(GraphInterface):
         else:
             return False
 
-    # def __repr__(self) -> str:
-    #     str = ''
-    #     # for k,v in self.get_all_v()
-    #
+    def __repr__(self) -> str:
+        """
+        Method returns a string represents the graph's specifications as required.
+
+        EXAMPLE:
+              Graph: |V|=4 , |E|=5
+              {0: 0: |edges out| 1 |edges in| 1, 1: 1: |edges out| 3 |edges in| 1, 2: 2: |edges out| 1 |edges in| 1, 3: 3: |edges out| 0 |edges in| 2}
+
+        Returns
+        -------
+        :return: the string represents the graph's specifications
+        """
+        s = "Graph: |V|={node_size} , |E|={edge_size}\n".format(node_size=self.__node_size, edge_size=self.__edge_size)
+        cnt = 1
+        s += '{'
+        for v in self.get_all_v():
+            in_dict = self.all_in_edges_of_node(v)
+            out_dict = self.all_out_edges_of_node(v)
+
+            in_len = 0
+            out_len = 0
+
+            if in_dict is not None:
+                in_len = len(in_dict.values())
+
+            if out_dict is not None:
+                out_len = len(out_dict.values())
+
+            if cnt is self.__node_size:
+                s += "{node_id}: {node_id}: |edges out| {out_len} |edges in| {in_len}".format(node_id=v, out_len=out_len, in_len=in_len)
+            else:
+                s += "{node_id}: {node_id}: |edges out| {out_len} |edges in| {in_len}, ".format(node_id=v, out_len=out_len, in_len=in_len)
+
+            cnt += 1
+
+        s += '}'
+
+        return s
