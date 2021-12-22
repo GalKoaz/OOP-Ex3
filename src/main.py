@@ -1,5 +1,7 @@
 from DiGraph import DiGraph
 from GraphAlgo import GraphAlgo
+from timeit import default_timer as timer
+from datetime import timedelta
 
 
 def check():
@@ -135,8 +137,21 @@ def check4():
     file = '../data/A5.json'
     g_algo.load_from_json(file)
     print(g_algo.centerPoint())
+    g_algo.plot_graph()
 
 
 if __name__ == '__main__':
+    # g_algo = GraphAlgo()
+    # file = '../data/A5.json'
+    # g_algo.load_from_json(file)
+    # lst = []
+    # for k in g_algo.get_graph().get_all_v().keys():
+    #     lst.append(k)
+    # start = timer()
+    # print(g_algo.TSP(lst))
+    # end = timer()
+    # print(timedelta(seconds=end - start))
+
     # check()
-    check4()
+    check2()
+# check4()
