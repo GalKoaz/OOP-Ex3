@@ -6,9 +6,9 @@
   <summary>Content</summary>
   <ol>
     <li><a href="#about-the-project">About The Project</a></li>
-    <li><a href="#code-details">Code Details</a></li>
     <li><a href="#plot-graph">Plot Graph</a></li>
     <li><a href="#algorithms">Algorithms</a></li>
+    <li><a href="#code-details">Code Details</a></li>
     <li><a href="#how-to-run">How  to run</a></li>
     <li><a href="#languages-and-tools">Languages and Tools</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -26,6 +26,34 @@ In this task we actually built data from a weighted and directed graph in Python
 it has come to implement your solution to your previous implementation in java.
 
 "The origins of graph theory are humble, even frivolous :round_pushpin:"
+
+
+----------------
+
+<!-- Plot Graph -->
+### Plot Graph
+
+<p align="center">
+<img align="center" src="https://s10.gifyu.com/images/myplot.png"/>
+</p>
+(For zoom in click on the image)
+
+In this project we were asked to display the graph visually,
+
+we chose to represent the graph using matplotlib  that allows uploading a graph using a JSON file.
+
+----------------
+<!-- algorithms -->
+## Algorithms
+
+In this project we used a number of algorithms, we will present the algorithms that were implemented in this project.
+
+[Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) to find the shortest path between a and b.
+It picks the unvisited vertex with the lowest distance, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller. Mark visited (set to red) when done with neighbors.
+
+[Graph Center](https://en.wikipedia.org/wiki/Graph_center) A graph with central points colored red. These are the three vertices A such that ```d(A, B) ≤ 3``` for all vertices B. Each black vertex is a distance of at least 4 from some other vertex.
+
+[Traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) The travelling salesman problem (also called the travelling salesperson problem or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" It is an ```NP-hard``` problem in combinatorial optimization, important in theoretical computer science and operations research.
 
 ---------
 
@@ -56,34 +84,8 @@ In addition to all the departments and interfaces mentioned above, we have prepa
 
 We have prepared a folder for the graphical interface which contains all the departments of the interface we need from the visual graph presentation to the structure and execution of the algorithms within it, the option to delete and add edges and vertices.
 
-----------------
-
-<!-- Plot Graph -->
-### Plot Graph
-
-<p align="center">
-<img align="center" src="https://s10.gifyu.com/images/myplot.png"/>
-</p>
-(For zoom in click on the image)
-
-In this project we were asked to display the graph visually,
-
-we chose to represent the graph using matplotlib  that allows uploading a graph using a JSON file.
-
-----------------
-<!-- algorithms -->
-## Algorithms
-
-In this project we used a number of algorithms, we will present the algorithms that were implemented in this project.
-
-[Dijkstra's algorithm](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm) to find the shortest path between a and b.
-It picks the unvisited vertex with the lowest distance, calculates the distance through it to each unvisited neighbor, and updates the neighbor's distance if smaller. Mark visited (set to red) when done with neighbors.
-
-[Graph Center](https://en.wikipedia.org/wiki/Graph_center) A graph with central points colored red. These are the three vertices A such that ```d(A, B) ≤ 3``` for all vertices B. Each black vertex is a distance of at least 4 from some other vertex.
-
-[Traveling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) The travelling salesman problem (also called the travelling salesperson problem or TSP) asks the following question: "Given a list of cities and the distances between each pair of cities, what is the shortest possible route that visits each city exactly once and returns to the origin city?" It is an ```NP-hard``` problem in combinatorial optimization, important in theoretical computer science and operations research.
-
 ---------
+
 <!-- how-to-run -->
 # How to run
 
