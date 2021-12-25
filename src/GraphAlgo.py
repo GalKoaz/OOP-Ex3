@@ -303,7 +303,7 @@ class GraphAlgo(GraphAlgoInterface):
                     x2 = t2[0]
                     y2 = t2[1]
                     plt.annotate("", xy=(x, y), xytext=(x2, y2),
-                                 arrowprops=dict(arrowstyle='- >', color='red', shrinkA=7, shrinkB=7, patchA=None,
+                                 arrowprops=dict(arrowstyle='< -', color='red', shrinkA=7, shrinkB=7, patchA=None,
                                                  patchB=None))
             plt.text(x, y, str(v), horizontalalignment='center',
                      verticalalignment='center',

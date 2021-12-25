@@ -23,6 +23,7 @@ def check():
     check0()
     check1()
     check2()
+    check3()
 
 
 def check0():
@@ -46,7 +47,7 @@ def check0():
     print(g.all_out_edges_of_node(1))
     g_algo = GraphAlgo(g)
     print(g_algo.shortest_path(0, 3))
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check1():
@@ -61,7 +62,7 @@ def check1():
     print(g_algo.shortest_path(3, 1))
     print(g_algo.centerPoint())
     g_algo.save_to_json(file + '_saved')
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check2():
@@ -82,7 +83,7 @@ def check2():
     dist, path = g_algo.shortest_path(2, 20)
     print(dist, path)
     print(g_algo.TSP([1, 2, 3]))
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check3():
@@ -103,7 +104,7 @@ def check3():
     g_algo = GraphAlgo(g)
     print(g_algo.centerPoint())
     print(g_algo.TSP([1, 2, 4]))
-    # g_algo.plot_graph()
+    g_algo.plot_graph()
 
 
 def check4():
@@ -142,7 +143,7 @@ def check4():
 
 if __name__ == '__main__':
     # g_algo = GraphAlgo()
-    # file = '../data/A5.json'
+    # file = '../data/1000.json'
     # g_algo.load_from_json(file)
     # lst = []
     # for k in g_algo.get_graph().get_all_v().keys():
@@ -152,6 +153,7 @@ if __name__ == '__main__':
     # end = timer()
     # print(timedelta(seconds=end - start))
 
-    # check()
-    check2()
-# check4()
+    check()
+    # check3()
+    # # check2()
+    # check4()
