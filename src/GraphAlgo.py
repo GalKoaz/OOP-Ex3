@@ -3,8 +3,7 @@
 # Author: Amir Gillette, Gal Koaz                                            #
 # Course: OOP                                                                #
 # -------------------------------------------------------------------------- #
-
-import copy
+import collections
 import heapq
 import json
 import math
@@ -21,14 +20,17 @@ class GraphAlgo(GraphAlgoInterface):
 
     def __init__(self, graph: DiGraph = DiGraph()):
         """
-        The Method returns a graph.
-        :param graph:
+        The method initializes a given graph.
+        Parameters
+        ----------
+        :param: graph: DiGraph
+            a given graph.
         """
         self.graph = graph
 
     def get_graph(self) -> DiGraph:
         """
-        The method returns a initialized graph.
+        The method returns an initialized graph.
         :return: the directed graph on which the algorithm works on.
         """
         return self.graph
@@ -242,9 +244,60 @@ class GraphAlgo(GraphAlgoInterface):
 
         return s
 
+    def isConnected(self) -> bool:
+        """
+        The method checks whether the graph is strongly connected, designed for checking the center method.
+        The method following Kosaraju's algorithm for SCC (Strongly Connected Components).
+
+        Time complexity. the method performs BFS traversal twice, once on the normal edges,
+        and for the inverted graph, whereas both can be achieved in O(1) as that is
+        how the graph was constructed, when the in edges of node v, is the dictionary
+        for the inverted edges of the normal graph.
+
+        Therefore, we will get:
+                    T(n) = O(2*(|E|+|V|)) = O(|E|+|V|)
+
+        Returns
+        -------
+        :return: bool: true if it is strongly connected, o.w. returns false.
+        """
+        root = list(self.graph.get_all_v())[0]
+        return True if (self.BFS(root) and self.BFS(root, invert=True)) else False
+
+    def BFS(self, id1: int, invert: bool = False) -> bool:
+        """
+        The method calculates the path's cost, meaning that it goes over each pair
+        and add its weight to the total weight.
+
+        Parameters
+        ----------
+        :param: id1: int
+            a source vertex id.
+
+        :param: invert: bool
+            a boolean flag indicated if the graph is inverted or not.
+        Returns
+        -------
+        :return: bool: the method returns true if BFS succeeded to reach to any vertex, o.w. returns false.
+        """
+        visited, q = set(), collections.deque([id1])
+        while q:
+            v = q.popleft()
+            V_neighbours = self.graph.all_out_edges_of_node(v) if invert else self.graph.all_in_edges_of_node(v)
+            if V_neighbours is None:
+                return False
+            for u in V_neighbours:
+                if u not in visited:
+                    visited.add(u)
+                    q.append(u)
+        return True if visited.__len__() == self.graph.v_size() else False
+
     def centerPoint(self) -> (int, float):
         """
         This method finds the center of the graph.
+
+        First, the method checks whether the graph is strongly connected or not,
+        because it is only the exceptional case. in this case, immediately RETURN -> (None, inf)
 
         Graph Center DEFINITION. the graph center is the vertex to have the minimum eccentricity.
 
@@ -265,6 +318,9 @@ class GraphAlgo(GraphAlgoInterface):
         :return: int: the center index (node id).
         :return: float: the value of the minimum distance.
         """
+        if not self.isConnected():
+            return None, math.inf
+
         minimum = math.inf
         center = 0
         for v in self.graph.get_all_v():
