@@ -275,7 +275,8 @@ class GraphAlgo(GraphAlgoInterface):
             a source vertex id.
 
         :param: invert: bool
-            a boolean flag indicated if the graph is inverted or not.
+            a boolean flag indicates if the graph is inverted or not.
+
         Returns
         -------
         :return: bool: the method returns true if BFS succeeded to reach to any vertex, o.w. returns false.
@@ -283,7 +284,7 @@ class GraphAlgo(GraphAlgoInterface):
         visited, q = set(), collections.deque([id1])
         while q:
             v = q.popleft()
-            V_neighbours = self.graph.all_out_edges_of_node(v) if invert else self.graph.all_in_edges_of_node(v)
+            V_neighbours = self.graph.all_in_edges_of_node(v) if invert else self.graph.all_out_edges_of_node(v)
             if V_neighbours is None:
                 return False
             for u in V_neighbours:
